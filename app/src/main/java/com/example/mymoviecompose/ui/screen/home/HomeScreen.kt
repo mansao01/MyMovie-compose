@@ -1,13 +1,11 @@
 package com.example.mymoviecompose.ui.screen.home
 
-import android.content.ClipData
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -55,6 +53,7 @@ fun HomeContent(
     Column(
         modifier = modifier
             .padding(16.dp)
+            .verticalScroll(rememberScrollState())
     ) {
         HomeSection(title = "Popular Today") {
             MovieListRowItem(
@@ -80,7 +79,7 @@ fun MovieListColumnItem(
     navigateToDetail: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    LazyColumn {
+    LazyColumn(modifier = Modifier.height(300.dp)){
         items(movie) { data ->
             MovieItemColumn(
                 movie = data,
