@@ -10,7 +10,7 @@ android {
     defaultConfig {
 //        buildConfigField("String", "AUTH", "Authorization :Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NTNlOTgzMGNkNGU2MDNhZTI4ZDcwNjk3M2VkMzZkZCIsInN1YiI6IjYyYTAwYWI5MTEzMGJkMDA5ZmM4NTAyMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.YArQOTxSOwqjeEJd7Cj7kqQ1KtMWzKYhFVLUegkPNY0")
         applicationId = "com.example.mymoviecompose"
-        minSdk = 24
+        minSdk = 25
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -60,6 +60,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+    implementation("androidx.wear.compose:compose-material:1.1.2")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
