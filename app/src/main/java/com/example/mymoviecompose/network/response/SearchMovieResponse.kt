@@ -17,7 +17,7 @@ data class SearchMovieResponse(
 	val totalResults: Int
 )
 
-data class ResultsItem(
+data class ResultsItemSearch(
 
 	@field:SerializedName("overview")
 	val overview: String,
