@@ -16,16 +16,10 @@ fun GenreList(
     genre: List<GenresItem>,
     modifier: Modifier = Modifier
 ) {
-    LazyRow() {
+    LazyRow(modifier= modifier) {
         items(genre) { data ->
-            Text(
-                text = "${data.name} ",
-                fontStyle = FontStyle.Italic,
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier
-                    .padding(start = 12.dp)
+            ChipView(text = data.name, modifier = Modifier.padding(start = 12.dp))
 
-            )
         }
     }
 

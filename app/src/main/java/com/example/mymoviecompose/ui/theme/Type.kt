@@ -2,9 +2,17 @@ package com.example.mymoviecompose.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.example.mymoviecompose.R
+
+private val sailec = FontFamily(
+    Font(R.font.sailec_regular),
+    Font(R.font.sailec_medium, FontWeight.W500),
+    Font(R.font.sailec_bold, FontWeight.Bold)
+)
 
 // Set of Material typography styles to start with
 val Typography = Typography(
@@ -14,7 +22,13 @@ val Typography = Typography(
         fontSize = 16.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
-    )
+    ),
+    labelSmall = TextStyle(
+        fontFamily = sailec,
+        fontWeight = FontWeight.Normal,
+        fontSize = 12.sp
+    ),
+
     /* Other default text styles to override
     titleLarge = TextStyle(
         fontFamily = FontFamily.Default,

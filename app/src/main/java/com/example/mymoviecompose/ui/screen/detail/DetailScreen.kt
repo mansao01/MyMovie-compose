@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
@@ -74,7 +75,7 @@ fun DetailContent(
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(330.dp)
+                .heightIn(330.dp)
                 .shadow(elevation = 1.dp, shape = RoundedCornerShape(size = 4.dp))
 
         ) {
@@ -102,10 +103,15 @@ fun DetailContent(
                     fontSize = 26.sp,
                     maxLines = 2,
                     overflow = TextOverflow.Clip,
-                    modifier = Modifier.padding(horizontal = 12.dp)
+                    modifier = Modifier
+                        .padding(horizontal = 12.dp)
                         .padding(top = 16.dp)
                 )
-                GenreList(genre = movie.genres)
+                GenreList(
+                    genre = movie.genres,
+                    modifier = Modifier
+                        .padding(top = 8.dp, bottom = 8.dp)
+                )
             }
 
         }
