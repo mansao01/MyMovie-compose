@@ -20,7 +20,7 @@ interface ApiService {
     ): MovieResponse
 
     @GET("trending/movie/day")
-    suspend fun getPopularMovie(
+    suspend fun getTrendingMovies(
         @Query("api_key")
         apiKey: String = "753e9830cd4e603ae28d706973ed36dd"
     ):TrendingMovieResponse

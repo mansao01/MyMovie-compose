@@ -1,13 +1,17 @@
 package com.example.mymoviecompose.ui.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.LocalContentColor
@@ -21,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ContentAlpha
@@ -29,6 +34,7 @@ import coil.request.ImageRequest
 import com.example.mymoviecompose.R
 import com.example.mymoviecompose.network.response.MovieResponse
 import com.example.mymoviecompose.network.response.ResultsItem
+import com.example.mymoviecompose.network.response.ResultsItemTrending
 
 @Composable
 fun MovieItemColumn(
@@ -114,10 +120,14 @@ fun MovieItemRow2(movie: ResultsItem, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun MovieItemRow(movie: ResultsItem, modifier: Modifier = Modifier) {
+fun MovieItemRow(
+    movie: ResultsItemTrending,
+    modifier: Modifier = Modifier,
+) {
     Card(
         modifier = Modifier
-            .size(width = 120.dp, height = 120.dp)
+            .size(width = 100.dp, height = 220.dp)
+            .padding(end = 4.dp)
             .shadow(elevation = 1.dp, shape = RoundedCornerShape(size = 4.dp))
     ) {
         Column(
@@ -127,19 +137,19 @@ fun MovieItemRow(movie: ResultsItem, modifier: Modifier = Modifier) {
         ) {
             AsyncImage(
                 model = ImageRequest.Builder(context = LocalContext.current)
-                    .data("https://image.tmdb.org/t/p/original/${movie.backdropPath}")
+                    .data("https://image.tmdb.org/t/p/original/${movie.posterPath}")
                     .crossfade(true)
                     .build(),
                 contentDescription = null,
                 modifier = Modifier
-                    .background(color = Color.Gray, shape = RectangleShape)
-                    .size(width = 120.dp, height = 40.dp)
+                    .size(width = 180.dp, height = 140.dp)
                     .fillMaxWidth(1.0f)
             )
             Text(
                 text = movie.title,
-//                style = MaterialTheme.typography.headlineLarge,
-                modifier = Modifier
+                textAlign = TextAlign.Center,
+                maxLines = 2,
+                modifier = modifier
                     .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 0.dp)
             )
 

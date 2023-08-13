@@ -24,13 +24,14 @@ class HomeViewModel(private val repository: MovieRepository) : ViewModel() {
         getMovies()
     }
 
-    private fun getMovies(){
+    private fun getMovies() {
         viewModelScope.launch {
             uiState = HomeUiState.Loading
             uiState = try {
                 val result = repository.getMovies()
-                HomeUiState.Success(result)
-            }catch (e: IOException) {
+                val resultTrendingMovies = repository.getTrendingMovie()
+                HomeUiState.Success(result, resultTrendingMovies)
+            } catch (e: IOException) {
                 HomeUiState.Error
             } catch (e: HttpException) {
                 HomeUiState.Error
@@ -41,7 +42,8 @@ class HomeViewModel(private val repository: MovieRepository) : ViewModel() {
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
-                val application = (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as MovieApplication)
+                val application =
+                    (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as MovieApplication)
                 val movieRepository = application.container.movieRepository
                 HomeViewModel(repository = movieRepository)
             }
