@@ -1,7 +1,6 @@
 package com.example.mymoviecompose.ui.screen.home
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -14,6 +13,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.material.Text
 import com.example.mymoviecompose.network.response.ResultsItem
 import com.example.mymoviecompose.network.response.ResultsItemTrending
@@ -28,6 +28,7 @@ import com.example.mymoviecompose.ui.component.MovieItemRow
 fun HomeScreen(
     uiState: HomeUiState,
     modifier: Modifier = Modifier,
+    homeViewModel: HomeViewModel = viewModel(factory = HomeViewModel.Factory),
     navigateToDetail: (Int) -> Unit
 ) {
     when (uiState) {
@@ -39,7 +40,10 @@ fun HomeScreen(
             modifier = modifier
         )
 
-        is HomeUiState.Error -> ErrorScreen()
+        is HomeUiState.Error -> ErrorScreen(
+            modifier = Modifier.clickable {
+                homeViewModel.getMovies()
+            })
     }
 }
 
@@ -79,8 +83,8 @@ fun MovieListColumnItem(
     navigateToDetail: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    LazyColumn(modifier = Modifier.height(300.dp)){
-        items(movie) { data ->
+    LazyColumn(modifier = Modifier.height(300.dp)) {
+        items(movie, key = { it.id }) { data ->
             MovieItemColumn(
                 movie = data,
                 modifier = modifier
@@ -95,11 +99,14 @@ fun MovieListRowItem(
     navigateToDetail: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    LazyRow {
-        items(movie) { data ->
+    LazyRow(
+        modifier = modifier
+    ) {
+        items(movie, key = { it.id }) { data ->
             MovieItemRow(movie = data,
                 modifier = modifier
-                    .clickable { navigateToDetail(data.id) })
+                    .clickable { navigateToDetail(data.id) }
+            )
         }
     }
 }

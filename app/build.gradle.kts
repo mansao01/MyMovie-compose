@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.mymoviecompose"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
 //        buildConfigField("String", "AUTH", "Authorization :Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NTNlOTgzMGNkNGU2MDNhZTI4ZDcwNjk3M2VkMzZkZCIsInN1YiI6IjYyYTAwYWI5MTEzMGJkMDA5ZmM4NTAyMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.YArQOTxSOwqjeEJd7Cj7kqQ1KtMWzKYhFVLUegkPNY0")
@@ -59,7 +59,8 @@ dependencies {
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.material3:material3:1.1.1")
+    implementation("androidx.compose.material:material:1.4.3")
     implementation("androidx.wear.compose:compose-material:1.1.2")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -85,5 +86,7 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.11.0")
 
     //navHost
-    implementation ("androidx.navigation:navigation-compose:2.5.3")
+    implementation ("androidx.navigation:navigation-compose:2.7.0")
+
+    implementation("androidx.compose.material:material-icons-extended:1.4.3")
 }

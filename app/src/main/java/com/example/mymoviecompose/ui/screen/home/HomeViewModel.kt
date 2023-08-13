@@ -24,7 +24,7 @@ class HomeViewModel(private val repository: MovieRepository) : ViewModel() {
         getMovies()
     }
 
-    private fun getMovies() {
+    fun getMovies() {
         viewModelScope.launch {
             uiState = HomeUiState.Loading
             uiState = try {

@@ -2,6 +2,7 @@ package com.example.mymoviecompose.network
 
 import com.example.mymoviecompose.network.response.DetailMovieResponse
 import com.example.mymoviecompose.network.response.MovieResponse
+import com.example.mymoviecompose.network.response.SearchMovieResponse
 import com.example.mymoviecompose.network.response.TrendingMovieResponse
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -24,6 +25,16 @@ interface ApiService {
         @Query("api_key")
         apiKey: String = "753e9830cd4e603ae28d706973ed36dd"
     ):TrendingMovieResponse
+
+    @GET("search/movie")
+    suspend fun searchMovie(
+        @Query("query")
+        query: String,
+        @Query("api_key")
+        apiKey: String = "753e9830cd4e603ae28d706973ed36dd",
+        @Query("include_adult")
+        includeAdult:Boolean = true
+    ):SearchMovieResponse
 
     @GET("movie/{movie_id}")
      suspend fun getDetailMovie(

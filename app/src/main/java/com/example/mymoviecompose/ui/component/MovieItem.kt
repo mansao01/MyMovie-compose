@@ -1,20 +1,16 @@
 package com.example.mymoviecompose.ui.component
 
+import android.widget.Toast
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,16 +19,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.ContentAlpha
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.mymoviecompose.R
-import com.example.mymoviecompose.network.response.MovieResponse
 import com.example.mymoviecompose.network.response.ResultsItem
 import com.example.mymoviecompose.network.response.ResultsItemTrending
 
@@ -82,7 +77,7 @@ fun MovieItemColumn(
 @Composable
 fun MovieItemRow2(movie: ResultsItem, modifier: Modifier = Modifier) {
     Card(
-        modifier = Modifier
+        modifier = modifier
             .size(width = 320.dp, height = 400.dp)
             .shadow(elevation = 1.dp, shape = RoundedCornerShape(size = 4.dp))
     ) {
@@ -124,8 +119,9 @@ fun MovieItemRow(
     movie: ResultsItemTrending,
     modifier: Modifier = Modifier,
 ) {
+    val context = LocalContext.current
     Card(
-        modifier = Modifier
+        modifier = modifier
             .size(width = 100.dp, height = 220.dp)
             .padding(end = 4.dp)
             .shadow(elevation = 1.dp, shape = RoundedCornerShape(size = 4.dp))
@@ -149,8 +145,18 @@ fun MovieItemRow(
                 text = movie.title,
                 textAlign = TextAlign.Center,
                 maxLines = 2,
-                modifier = modifier
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier
                     .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 0.dp)
+                    .pointerInput(Unit) {
+                        detectTapGestures(
+                            onLongPress = {
+                                Toast
+                                    .makeText(context, movie.title, Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                        )
+                    }
             )
 
 

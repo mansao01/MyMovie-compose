@@ -8,12 +8,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.wear.compose.material.Text
 import com.example.mymoviecompose.R
 
 @Composable
 fun ErrorScreen(modifier: Modifier = Modifier) {
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -22,6 +24,11 @@ fun ErrorScreen(modifier: Modifier = Modifier) {
         Image(
             painter = painterResource(id = R.drawable.ic_connection_error),
             contentDescription = null
+        )
+        Text(
+            text = "Refresh",
+            textDecoration = TextDecoration.Underline,
+            modifier = modifier
         )
     }
 }
