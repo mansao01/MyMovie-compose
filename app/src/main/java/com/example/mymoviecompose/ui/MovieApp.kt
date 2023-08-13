@@ -57,7 +57,9 @@ fun MovieApp(
             }
         },
         bottomBar = {
-            BottomBar(navController = navController)
+            if (currentRoute != Screen.Detail.route){
+                BottomBar(navController = navController)
+            }
         }
     ) {
         Surface(
@@ -79,7 +81,7 @@ fun MovieApp(
                         })
                 }
 
-                composable(Screen.Search.route){
+                composable(Screen.Search.route) {
                     SearchScreen()
                 }
 
@@ -89,7 +91,12 @@ fun MovieApp(
                     val movieId = data.arguments?.getInt("movieId") ?: -1
                     val detailViewModel: DetailViewModel =
                         viewModel(factory = DetailViewModel.Factory)
-                    DetailScreen(uiState = detailViewModel.uiState, movieId = movieId)
+                    DetailScreen(
+                        uiState = detailViewModel.uiState,
+                        movieId = movieId, navigateToHome = {
+                            navController.navigate(Screen.Home.route)
+                        }
+                    )
                 }
             }
         }
@@ -146,9 +153,9 @@ fun BottomBar(
                             launchSingleTop = true
                         }
                     },
-                    label = {
-                        Text(text = item.title)
-                    },
+//                    label = {
+//                        Text(text = item.title)
+//                    },
                     unselectedContentColor = MaterialTheme.colorScheme.primary.copy(0.4f),
                     selectedContentColor = MaterialTheme.colorScheme.primary,
                 )
