@@ -24,5 +24,6 @@ sealed interface DetailUiState {
 sealed interface SearchUiState {
     data class Success(val movie: SearchMovieResponse) : SearchUiState
     object Error : SearchUiState
+    object StandBy : SearchUiState
     object Loading : SearchUiState
 }

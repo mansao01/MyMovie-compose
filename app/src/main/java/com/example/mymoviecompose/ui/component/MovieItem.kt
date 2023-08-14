@@ -29,6 +29,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.mymoviecompose.R
 import com.example.mymoviecompose.network.response.ResultsItem
+import com.example.mymoviecompose.network.response.ResultsItemSearch
 import com.example.mymoviecompose.network.response.ResultsItemTrending
 
 @Composable
@@ -75,41 +76,44 @@ fun MovieItemColumn(
 }
 
 @Composable
-fun MovieItemRow2(movie: ResultsItem, modifier: Modifier = Modifier) {
+fun SearchMovieItemColumn(
+    movie: ResultsItemSearch, modifier: Modifier = Modifier
+) {
     Card(
-        modifier = modifier
-            .size(width = 320.dp, height = 400.dp)
-            .shadow(elevation = 1.dp, shape = RoundedCornerShape(size = 4.dp))
+        modifier = modifier.padding(4.dp),
+        shape = MaterialTheme.shapes.medium
     ) {
-        Column(
-            verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.Start,
-            modifier = Modifier
-        ) {
+        Row(modifier = modifier.fillMaxWidth()) {
             AsyncImage(
                 model = ImageRequest.Builder(context = LocalContext.current)
-                    .data("https://image.tmdb.org/t/p/original/${movie.backdropPath}")
+                    .data("https://image.tmdb.org/t/p/original/${movie.posterPath}")
                     .crossfade(true)
                     .build(),
                 contentDescription = null,
+                placeholder = painterResource(id = R.drawable.loading_img),
+                error = painterResource(id = R.drawable.ic_broken_image),
                 modifier = Modifier
-                    .background(color = Color.Gray, shape = RectangleShape)
-                    .size(width = 320.dp, height = 180.dp)
-                    .fillMaxWidth(1.0f)
+                    .size(68.dp)
+                    .align(Alignment.CenterVertically)
             )
-            Text(
-                text = movie.title,
-                style = MaterialTheme.typography.headlineLarge,
+            Column(
                 modifier = Modifier
-                    .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 0.dp)
-            )
-
-            Text(
-                text = movie.overview,
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier
-                    .padding(horizontal = 16.dp, vertical = 16.dp)
-            )
+                    .padding(horizontal = 16.dp)
+                    .padding(top = 4.dp)
+            ) {
+                Text(
+                    text = movie.title,
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(4.dp)
+                )
+                Text(
+                    text = movie.overview,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
+            }
         }
     }
 }
@@ -160,6 +164,46 @@ fun MovieItemRow(
             )
 
 
+        }
+    }
+}
+
+@Composable
+fun MovieItemRow2(movie: ResultsItem, modifier: Modifier = Modifier) {
+    Card(
+        modifier = modifier
+            .size(width = 320.dp, height = 400.dp)
+            .shadow(elevation = 1.dp, shape = RoundedCornerShape(size = 4.dp))
+    ) {
+        Column(
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.Start,
+            modifier = Modifier
+        ) {
+            AsyncImage(
+                model = ImageRequest.Builder(context = LocalContext.current)
+                    .data("https://image.tmdb.org/t/p/original/${movie.backdropPath}")
+                    .crossfade(true)
+                    .build(),
+                contentDescription = null,
+                modifier = Modifier
+                    .background(color = Color.Gray, shape = RectangleShape)
+                    .size(width = 320.dp, height = 180.dp)
+                    .fillMaxWidth(1.0f)
+            )
+            Text(
+                text = movie.title,
+                style = MaterialTheme.typography.headlineLarge,
+                modifier = Modifier
+                    .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 0.dp)
+            )
+
+            Text(
+                text = movie.overview,
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier
+                    .padding(horizontal = 16.dp, vertical = 16.dp)
+            )
         }
     }
 }

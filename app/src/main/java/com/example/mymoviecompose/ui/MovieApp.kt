@@ -39,6 +39,7 @@ import com.example.mymoviecompose.ui.screen.detail.DetailViewModel
 import com.example.mymoviecompose.ui.screen.home.HomeScreen
 import com.example.mymoviecompose.ui.screen.home.HomeViewModel
 import com.example.mymoviecompose.ui.screen.search.SearchScreen
+import com.example.mymoviecompose.ui.screen.search.SearchViewModel
 
 @Composable
 fun MovieApp(
@@ -82,7 +83,8 @@ fun MovieApp(
                 }
 
                 composable(Screen.Search.route) {
-                    SearchScreen()
+                    val searchViewModel:SearchViewModel = viewModel(factory = SearchViewModel.Factory)
+                    SearchScreen(searchViewModel.uiState)
                 }
 
                 composable(Screen.Detail.route, arguments = listOf(navArgument("movieId") {

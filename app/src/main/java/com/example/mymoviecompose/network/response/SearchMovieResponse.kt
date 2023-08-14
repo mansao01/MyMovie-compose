@@ -11,7 +11,7 @@ data class SearchMovieResponse(
 	val totalPages: Int,
 
 	@field:SerializedName("results")
-	val results: List<ResultsItem>,
+	val results: List<ResultsItemSearch>,
 
 	@field:SerializedName("total_results")
 	val totalResults: Int

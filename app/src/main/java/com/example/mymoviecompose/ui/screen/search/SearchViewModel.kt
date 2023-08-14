@@ -18,10 +18,12 @@ import retrofit2.HttpException
 import java.io.IOException
 
 class SearchViewModel(private val repository: MovieRepository) : ViewModel() {
-    val greeting by mutableStateOf("SUPPP")
-    var uiState: SearchUiState by mutableStateOf(SearchUiState.Loading)
+    var uiState: SearchUiState by mutableStateOf(SearchUiState.StandBy)
         private set
 
+    fun makeStandByState(){
+        uiState = SearchUiState.StandBy
+    }
 
     fun searchMovie(query: String) {
         viewModelScope.launch {
