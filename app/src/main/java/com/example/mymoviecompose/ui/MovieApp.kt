@@ -153,11 +153,11 @@ fun BottomBar(
                             launchSingleTop = true
                         }
                     },
-//                    label = {
-//                        Text(text = item.title)
-//                    },
+                    label = {
+                        Text(text = item.title)
+                    },
                     unselectedContentColor = MaterialTheme.colorScheme.primary.copy(0.4f),
-                    selectedContentColor = MaterialTheme.colorScheme.primary,
+                    selectedContentColor = MaterialTheme.colorScheme.tertiaryContainer,
                 )
             }
         }
