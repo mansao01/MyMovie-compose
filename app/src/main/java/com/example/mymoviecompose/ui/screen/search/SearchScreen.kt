@@ -43,10 +43,15 @@ fun SearchMovieListItem(
     movie: List<ResultsItemSearch>,
     modifier: Modifier = Modifier
 ) {
-    LazyColumn(modifier = modifier){
-        items(movie){ data->
-            SearchMovieItemColumn(movie = data)
-        }
+    if (movie.isNotEmpty()){
 
+        LazyColumn(modifier = modifier){
+            items(movie){ data->
+                SearchMovieItemColumn(movie = data)
+            }
+
+        }
+    }else{
+        Text(text = "Movie Not found")
     }
 }

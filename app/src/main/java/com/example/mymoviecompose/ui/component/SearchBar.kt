@@ -2,7 +2,6 @@
 
 package com.example.mymoviecompose.ui.component
 
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
@@ -33,6 +32,7 @@ fun MySearchBar(
         onQueryChange = { newQuery ->
             query = newQuery
             isActive = if (newQuery.isNotEmpty()) {
+                searchViewModel.searchMovie(newQuery)
                 true
             } else {
                 searchViewModel.makeStandByState()
@@ -45,10 +45,11 @@ fun MySearchBar(
         placeholder = { Text(text = "SearchMovie") },
         leadingIcon = { Icon(imageVector = Icons.Default.Search, contentDescription = null) },
         trailingIcon = {
-            if (isActive) {
+            if (isActive && query.isNotEmpty()) {
                 IconButton(
                     onClick = {
                         query = ""
+                        searchViewModel.makeStandByState()
                     }
                 ) {
                     Icon(imageVector = Icons.Filled.Close, contentDescription = "Close")
