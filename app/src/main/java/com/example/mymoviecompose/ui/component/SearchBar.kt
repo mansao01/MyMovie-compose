@@ -25,33 +25,30 @@ fun MySearchBar(
     searchViewModel: SearchViewModel,
     modifier: Modifier = Modifier
 ) {
-    var query by rememberSaveable {
-        mutableStateOf("")
-    }
-    var isActive by remember {
-        mutableStateOf(false)
-    }
+    var query by rememberSaveable { mutableStateOf("") }
+    var isActive by remember { mutableStateOf(false) }
 
     SearchBar(
         query = query,
-        onQueryChange = { query = it },
-        onSearch = {
-            searchViewModel.searchMovie(query)
+        onQueryChange = { newQuery ->
+            query = newQuery
+            isActive = if (newQuery.isNotEmpty()) {
+                true
+            } else {
+                searchViewModel.makeStandByState()
+                false
+            }
         },
-        active = false,
+        onSearch = { searchViewModel.searchMovie(query) },
         onActiveChange = { isActive = it },
+        active = false,
         placeholder = { Text(text = "SearchMovie") },
         leadingIcon = { Icon(imageVector = Icons.Default.Search, contentDescription = null) },
         trailingIcon = {
             if (isActive) {
                 IconButton(
                     onClick = {
-                        if (query.isNotEmpty()) {
-                            query = ""
-                        } else {
-                            searchViewModel.makeStandByState()
-                            isActive = false
-                        }
+                        query = ""
                     }
                 ) {
                     Icon(imageVector = Icons.Filled.Close, contentDescription = "Close")
@@ -61,5 +58,4 @@ fun MySearchBar(
         content = {},
         modifier = modifier
     )
-
 }
