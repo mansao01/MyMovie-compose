@@ -12,9 +12,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.wear.compose.material.Text
+import com.example.mymoviecompose.R
 import com.example.mymoviecompose.network.response.ResultsItem
 import com.example.mymoviecompose.network.response.ResultsItemTrending
 import com.example.mymoviecompose.ui.common.HomeUiState
@@ -59,21 +60,20 @@ fun HomeContent(
             .padding(16.dp)
             .verticalScroll(rememberScrollState())
     ) {
-        HomeSection(title = "Popular Today") {
+        HomeSection(title = stringResource(R.string.popular_today)) {
             MovieListRowItem(
                 movie = movieTrending,
                 navigateToDetail = navigateToDetail
             )
         }
         Spacer(modifier = Modifier.height(16.dp))
-        HomeSection(title = "Discover  Movie") {
+        HomeSection(title = stringResource(R.string.discover_movie)) {
             MovieListColumnItem(
                 movie = movie,
                 navigateToDetail = navigateToDetail
             )
         }
         Spacer(modifier = Modifier.height(16.dp))
-        Text(text = "YOOOOOO")
     }
 }
 

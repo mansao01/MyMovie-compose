@@ -3,4 +3,9 @@
     <string name="movie_app">Movie App</string>
     <string name="home">Home</string>
     <string name="search">Search</string>
+    <string name="popular_today">Popular Today</string>
+    <string name="discover_movie">Discover  Movie</string>
+    <string name="back">Back</string>
+    <string name="please_search_movie_to_show_result">Please search movie to show result</string>
+    <string name="movie_not_found">Movie Not Found</string>
 </resources>

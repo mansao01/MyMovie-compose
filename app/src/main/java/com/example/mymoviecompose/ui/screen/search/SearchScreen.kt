@@ -8,9 +8,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.wear.compose.material.Text
+import com.example.mymoviecompose.R
 import com.example.mymoviecompose.network.response.ResultsItemSearch
 import com.example.mymoviecompose.ui.common.SearchUiState
 import com.example.mymoviecompose.ui.component.ErrorScreen
@@ -37,7 +38,7 @@ fun SearchScreen(
         )
 
         when (uiState) {
-            is SearchUiState.StandBy -> StandByScreen(message = "Please search movie to show result")
+            is SearchUiState.StandBy -> StandByScreen(message = stringResource(R.string.please_search_movie_to_show_result))
             is SearchUiState.Loading -> LoadingScreen()
             is SearchUiState.Success -> SearchMovieListItem(
                 movie = uiState.movie.results,
@@ -66,6 +67,6 @@ fun SearchMovieListItem(
 
         }
     } else {
-        NotFoundScreen(message = "Movie Not Found")
+        NotFoundScreen(message = stringResource(R.string.movie_not_found))
     }
 }

@@ -5,7 +5,6 @@ import com.example.mymoviecompose.network.response.DetailMovieResponse
 import com.example.mymoviecompose.network.response.MovieResponse
 import com.example.mymoviecompose.network.response.SearchMovieResponse
 import com.example.mymoviecompose.network.response.TrendingMovieResponse
-import retrofit2.http.Query
 
 interface MovieRepository {
     suspend fun getMovies(): MovieResponse

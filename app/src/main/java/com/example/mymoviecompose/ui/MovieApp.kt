@@ -116,31 +116,29 @@ fun BottomBar(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
-    BottomNavigation(
-        modifier = modifier
-    ) {
-        val navBackStackEntry by navController.currentBackStackEntryAsState()
-        val currentRoute = navBackStackEntry?.destination?.route
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
 
-        val navigationItems = listOf(
-            NavigationItem(
-                title = stringResource(R.string.home),
-                icon = Icons.Default.Home,
-                screen = Screen.Home,
-                contentDescription = stringResource(R.string.home)
+    val navigationItems = listOf(
+        NavigationItem(
+            title = stringResource(R.string.home),
+            icon = Icons.Default.Home,
+            screen = Screen.Home,
+            contentDescription = stringResource(R.string.home)
 
-            ),
-            NavigationItem(
-                title = stringResource(R.string.search),
-                icon = Icons.Default.Search,
-                screen = Screen.Search,
-                contentDescription = stringResource(R.string.search)
+        ),
+        NavigationItem(
+            title = stringResource(R.string.search),
+            icon = Icons.Default.Search,
+            screen = Screen.Search,
+            contentDescription = stringResource(R.string.search)
 
             )
         )
         BottomNavigation(
             backgroundColor = MaterialTheme.colorScheme.background,
-            contentColor = MaterialTheme.colorScheme.onBackground
+            contentColor = MaterialTheme.colorScheme.onBackground,
+            modifier = modifier
         ) {
             navigationItems.map { item ->
                 BottomNavigationItem(
@@ -171,4 +169,3 @@ fun BottomBar(
         }
     }
 
-}
