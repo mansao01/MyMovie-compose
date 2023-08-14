@@ -80,10 +80,12 @@ fun SearchMovieItemColumn(
     movie: ResultsItemSearch, modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = modifier.padding(4.dp),
-        shape = MaterialTheme.shapes.medium
+        modifier = modifier
+            .padding(4.dp)
+            .fillMaxWidth(),
+        shape = MaterialTheme.shapes.large
     ) {
-        Row(modifier = modifier.fillMaxWidth()) {
+        Row {
             AsyncImage(
                 model = ImageRequest.Builder(context = LocalContext.current)
                     .data("https://image.tmdb.org/t/p/original/${movie.posterPath}")

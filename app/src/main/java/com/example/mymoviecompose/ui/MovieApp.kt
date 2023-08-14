@@ -58,7 +58,7 @@ fun MovieApp(
             }
         },
         bottomBar = {
-            if (currentRoute != Screen.Detail.route){
+            if (currentRoute != Screen.Detail.route) {
                 BottomBar(navController = navController)
             }
         }
@@ -83,8 +83,14 @@ fun MovieApp(
                 }
 
                 composable(Screen.Search.route) {
-                    val searchViewModel:SearchViewModel = viewModel(factory = SearchViewModel.Factory)
-                    SearchScreen(searchViewModel.uiState)
+                    val searchViewModel: SearchViewModel =
+                        viewModel(factory = SearchViewModel.Factory)
+                    SearchScreen(
+                        searchViewModel.uiState,
+                        navigateToDetail = { movieId ->
+                            navController.navigate(Screen.Detail.createRoute(movieId))
+                        }
+                    )
                 }
 
                 composable(Screen.Detail.route, arguments = listOf(navArgument("movieId") {
@@ -134,7 +140,7 @@ fun BottomBar(
         )
         BottomNavigation(
             backgroundColor = MaterialTheme.colorScheme.background,
-            contentColor = MaterialTheme.colorScheme.background
+            contentColor = MaterialTheme.colorScheme.onBackground
         ) {
             navigationItems.map { item ->
                 BottomNavigationItem(
@@ -158,7 +164,7 @@ fun BottomBar(
                     label = {
                         Text(text = item.title)
                     },
-                    unselectedContentColor = MaterialTheme.colorScheme.primary.copy(0.4f),
+                    unselectedContentColor = MaterialTheme.colorScheme.onBackground.copy(0.4f),
                     selectedContentColor = MaterialTheme.colorScheme.tertiaryContainer,
                 )
             }

@@ -7,8 +7,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Card
@@ -73,8 +75,9 @@ fun DetailContent(
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(330.dp)
+                .heightIn(230.dp)
                 .shadow(elevation = 1.dp, shape = RoundedCornerShape(size = 4.dp))
+                .verticalScroll(rememberScrollState())
         ) {
             Column(
                 verticalArrangement = Arrangement.Top,
@@ -105,7 +108,10 @@ fun DetailContent(
                             tint = MaterialTheme.colorScheme.primary,
                             contentDescription = "Back",
                             modifier = Modifier
-                                .background(MaterialTheme.colorScheme.background, shape = CircleShape)
+                                .background(
+                                    MaterialTheme.colorScheme.background,
+                                    shape = CircleShape
+                                )
                                 .padding(8.dp)
 //                                .drawBehind {
 //                                    drawCircle(
@@ -113,8 +119,6 @@ fun DetailContent(
 //                                        radius = this.size.minDimension
 //                                    )
 //                                }
-
-
                         )
                     }
                 }
