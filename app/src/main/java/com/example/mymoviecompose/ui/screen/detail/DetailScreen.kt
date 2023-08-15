@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -97,6 +98,7 @@ fun DetailContent(
                         modifier = Modifier
                             .background(color = Color.Gray, shape = RectangleShape)
                             .fillMaxWidth()
+                            .heightIn(230.dp)
                     )
                     IconButton(
                         onClick = { navigateToHome() },

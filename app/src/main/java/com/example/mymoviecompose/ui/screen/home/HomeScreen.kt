@@ -61,14 +61,14 @@ fun HomeContent(
             .verticalScroll(rememberScrollState())
     ) {
         HomeSection(title = stringResource(R.string.popular_today)) {
-            MovieListRowItem(
+            MovieListPopularToday(
                 movie = movieTrending,
                 navigateToDetail = navigateToDetail
             )
         }
         Spacer(modifier = Modifier.height(16.dp))
         HomeSection(title = stringResource(R.string.discover_movie)) {
-            MovieListColumnItem(
+            MovieListDiscover(
                 movie = movie,
                 navigateToDetail = navigateToDetail
             )
@@ -78,7 +78,7 @@ fun HomeContent(
 }
 
 @Composable
-fun MovieListColumnItem(
+fun MovieListDiscover(
     movie: List<ResultsItem>,
     navigateToDetail: (Int) -> Unit,
     modifier: Modifier = Modifier
@@ -94,7 +94,7 @@ fun MovieListColumnItem(
 }
 
 @Composable
-fun MovieListRowItem(
+fun MovieListPopularToday(
     movie: List<ResultsItemTrending>,
     navigateToDetail: (Int) -> Unit,
     modifier: Modifier = Modifier

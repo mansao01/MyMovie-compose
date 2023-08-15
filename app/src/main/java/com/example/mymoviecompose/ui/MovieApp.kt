@@ -133,39 +133,39 @@ fun BottomBar(
             screen = Screen.Search,
             contentDescription = stringResource(R.string.search)
 
-            )
         )
-        BottomNavigation(
-            backgroundColor = MaterialTheme.colorScheme.background,
-            contentColor = MaterialTheme.colorScheme.onBackground,
-            modifier = modifier
-        ) {
-            navigationItems.map { item ->
-                BottomNavigationItem(
-                    selected = currentRoute == item.screen.route,
-                    icon = {
-                        Icon(
-                            imageVector = item.icon,
-                            contentDescription = item.contentDescription,
-                            tint = MaterialTheme.colorScheme.primary
-                        )
-                    },
-                    onClick = {
-                        navController.navigate(item.screen.route) {
-                            popUpTo(navController.graph.findStartDestination().id) {
-                                saveState = true
-                            }
-                            restoreState = true
-                            launchSingleTop = true
+    )
+    BottomNavigation(
+        backgroundColor = MaterialTheme.colorScheme.background,
+        contentColor = MaterialTheme.colorScheme.onBackground,
+        modifier = modifier
+    ) {
+        navigationItems.map { item ->
+            BottomNavigationItem(
+                selected = currentRoute == item.screen.route,
+                icon = {
+                    Icon(
+                        imageVector = item.icon,
+                        contentDescription = item.contentDescription,
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                },
+                onClick = {
+                    navController.navigate(item.screen.route) {
+                        popUpTo(navController.graph.findStartDestination().id) {
+                            saveState = true
                         }
-                    },
-                    label = {
-                        Text(text = item.title)
-                    },
-                    unselectedContentColor = MaterialTheme.colorScheme.onBackground.copy(0.4f),
-                    selectedContentColor = MaterialTheme.colorScheme.tertiaryContainer,
-                )
-            }
+                        restoreState = true
+                        launchSingleTop = true
+                    }
+                },
+                label = {
+                    Text(text = item.title)
+                },
+                unselectedContentColor = MaterialTheme.colorScheme.onBackground.copy(0.4f),
+                selectedContentColor = MaterialTheme.colorScheme.tertiaryContainer,
+            )
         }
     }
+}
 
