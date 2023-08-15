@@ -23,10 +23,10 @@ fun HomeSection(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit
 ) {
-    Column(modifier) {
+    Column {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
                 .paddingFromBaseline(top = 40.dp, bottom = 28.dp)
@@ -39,7 +39,7 @@ fun HomeSection(
             )
             Icon(
                 imageVector = Icons.Default.ArrowForward,
-                contentDescription = null
+                contentDescription = null,
             )
         }
 

@@ -1,17 +1,24 @@
 package com.example.mymoviecompose.ui.screen.home
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -55,20 +62,29 @@ fun HomeContent(
     navigateToDetail: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
     Column(
         modifier = modifier
             .padding(16.dp)
             .verticalScroll(rememberScrollState())
     ) {
-        HomeSection(title = stringResource(R.string.popular_today)) {
-            MovieListPopularToday(
+        HomeSection(
+            title = stringResource(R.string.trending_today),
+            modifier = Modifier.clickable {
+                Toast.makeText(
+                    context,
+                    "Under developing",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }) {
+            MovieListRowPopularToday(
                 movie = movieTrending,
                 navigateToDetail = navigateToDetail
             )
         }
         Spacer(modifier = Modifier.height(16.dp))
         HomeSection(title = stringResource(R.string.discover_movie)) {
-            MovieListDiscover(
+            MovieListColumnDiscover(
                 movie = movie,
                 navigateToDetail = navigateToDetail
             )
@@ -78,23 +94,34 @@ fun HomeContent(
 }
 
 @Composable
-fun MovieListDiscover(
+fun MovieListColumnDiscover(
     movie: List<ResultsItem>,
     navigateToDetail: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    LazyColumn(modifier = Modifier.height(300.dp)) {
+//    LazyColumn(modifier = Modifier.height(300.dp)) {
+//        items(movie, key = { it.id }) { data ->
+//            MovieItemColumn(
+//                movie = data,
+//                modifier = modifier
+//                    .clickable { navigateToDetail(data.id) })
+//        }
+//    }
+    LazyHorizontalGrid(
+        rows = GridCells.Fixed(3),
+        modifier = Modifier.height(300.dp)
+    ) {
         items(movie, key = { it.id }) { data ->
-            MovieItemColumn(
-                movie = data,
+            MovieItemColumn(movie = data,
                 modifier = modifier
-                    .clickable { navigateToDetail(data.id) })
+                    .clickable { navigateToDetail(data.id) }
+            )
         }
     }
 }
 
 @Composable
-fun MovieListPopularToday(
+fun MovieListRowPopularToday(
     movie: List<ResultsItemTrending>,
     navigateToDetail: (Int) -> Unit,
     modifier: Modifier = Modifier

@@ -7,8 +7,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
@@ -40,7 +42,7 @@ fun MovieItemColumn(
         modifier = modifier.padding(4.dp),
         shape = MaterialTheme.shapes.medium
     ) {
-        Row(modifier = modifier.fillMaxWidth()) {
+        Row(modifier = modifier.width(320.dp)) {
             AsyncImage(
                 model = ImageRequest.Builder(context = LocalContext.current)
                     .data("https://image.tmdb.org/t/p/original/${movie.posterPath}")
@@ -50,7 +52,7 @@ fun MovieItemColumn(
                 placeholder = painterResource(id = R.drawable.loading_img),
                 error = painterResource(id = R.drawable.ic_broken_image),
                 modifier = Modifier
-                    .size(68.dp)
+                    .size(82.dp)
                     .align(Alignment.CenterVertically)
             )
             Column(
@@ -128,9 +130,12 @@ fun MovieItemRow(
     val context = LocalContext.current
     Card(
         modifier = modifier
-            .size(width = 100.dp, height = 220.dp)
+            .size(width = 120.dp, height = 220.dp)
             .padding(end = 4.dp)
-            .shadow(elevation = 1.dp, shape = RoundedCornerShape(size = 4.dp))
+            .shadow(
+                elevation = 1.dp,
+                shape = RoundedCornerShape(size = 4.dp)
+            )
     ) {
         Column(
             verticalArrangement = Arrangement.Top,
@@ -144,7 +149,7 @@ fun MovieItemRow(
                     .build(),
                 contentDescription = null,
                 modifier = Modifier
-                    .size(width = 180.dp, height = 140.dp)
+                    .size(width = 180.dp, height = 168.dp)
                     .fillMaxWidth(1.0f)
             )
             Text(
@@ -164,8 +169,6 @@ fun MovieItemRow(
                         )
                     }
             )
-
-
         }
     }
 }

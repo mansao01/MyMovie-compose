@@ -93,6 +93,7 @@ fun MovieApp(
                     )
                 }
 
+
                 composable(Screen.Detail.route, arguments = listOf(navArgument("movieId") {
                     type = NavType.IntType
                 })) { data ->
