@@ -7,10 +7,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.mymoviecompose.R
 import com.example.mymoviecompose.network.response.ResultsItemSearch
 import com.example.mymoviecompose.ui.common.SearchUiState
@@ -67,6 +72,15 @@ fun SearchMovieListItem(
 
         }
     } else {
-        NotFoundScreen(message = stringResource(R.string.movie_not_found))
+        val composition by
+        rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.not_found))
+
+        Column(modifier = Modifier.fillMaxWidth()) {
+            LottieAnimation(
+                composition = composition,
+                iterations = LottieConstants.IterateForever
+            )
+            NotFoundScreen(message = stringResource(R.string.movie_not_found))
+        }
     }
 }
