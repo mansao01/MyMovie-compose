@@ -1,7 +1,11 @@
 package com.example.mymoviecompose.ui.component
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarScrollBehavior
@@ -20,6 +24,11 @@ fun MyTopAppBar(scrollBehavior: TopAppBarScrollBehavior, modifier: Modifier = Mo
                 text = stringResource(R.string.movie_app),
                 style = MaterialTheme.typography.headlineSmall,
             )
+        },
+        actions = {
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(imageVector = Icons.Default.Settings, contentDescription = null)
+            }
         },
         modifier = modifier
     )

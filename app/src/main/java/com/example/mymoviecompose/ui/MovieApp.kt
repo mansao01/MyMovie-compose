@@ -55,7 +55,7 @@ fun MovieApp(
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            if (currentRoute != Screen.Detail.route) {
+            if (currentRoute == Screen.Home.route) {
                 MyTopAppBar(scrollBehavior = scrollBehavior)
             }
         },
