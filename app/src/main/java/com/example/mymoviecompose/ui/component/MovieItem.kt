@@ -245,7 +245,14 @@ fun MovieFavoriteItemColumn(
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier
                         .padding(4.dp)
-                        .padding(bottom = 8.dp)
+                )
+
+                Text(
+                    text = movie.overview,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(bottom = 8.dp)
                 )
 
             }

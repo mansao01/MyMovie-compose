@@ -23,7 +23,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -47,8 +46,6 @@ import com.example.mymoviecompose.ui.component.ErrorScreen
 import com.example.mymoviecompose.ui.component.GenreList
 import com.example.mymoviecompose.ui.component.LoadingScreen
 import kotlinx.coroutines.flow.Flow
-import kotlin.contracts.ExperimentalContracts
-import kotlin.contracts.contract
 
 @Composable
 fun DetailScreen(
@@ -76,7 +73,6 @@ fun DetailScreen(
     }
 }
 
-@OptIn(ExperimentalContracts::class)
 @Composable
 fun DetailContent(
     movie: DetailMovieResponse,
@@ -85,13 +81,15 @@ fun DetailContent(
     navigateToHome: () -> Unit,
     detailViewModel: DetailViewModel
 ) {
-    val movieFlowResult by movieFlow.collectAsState(initial = Movie())
+//    val movieFlowResult by movieFlow.collectAsState(initial = Movie())
+    val movieInDatabase = movieFlow.collectAsState(null).value != null
 
 
     val movieEntity = Movie(
         id = movie.id,
         title = movie.title,
-        photoUrl = "https://image.tmdb.org/t/p/original/${movie.backdropPath}", // Adjust this URL as needed
+        photoUrl = "https://image.tmdb.org/t/p/original/${movie.posterPath}",
+        overview = movie.overview
     )
 
     Column(modifier = modifier) {
@@ -142,7 +140,7 @@ fun DetailContent(
 
                     IconButton(
                         onClick = {
-                            if (movieFlowResult != null) {
+                            if (movieInDatabase) {
                                 detailViewModel.deleteMovieFromFavor(movieEntity)
                             } else {
                                 detailViewModel.insertMovieToFavor(movieEntity)
@@ -153,7 +151,7 @@ fun DetailContent(
                             .align(Alignment.TopEnd)
                     ) {
                         Icon(
-                            imageVector = if (movieFlowResult != null) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                            imageVector = if (movieInDatabase) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                             tint = MaterialTheme.colorScheme.primary,
                             contentDescription = stringResource(R.string.favorite),
                             modifier = Modifier

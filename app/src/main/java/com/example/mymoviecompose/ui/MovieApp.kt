@@ -111,7 +111,7 @@ fun MovieApp(
                         uiState = detailViewModel.uiState,
                         movieId = movieId,
                         navigateToHome = {
-                            navController.navigate(Screen.Home.route)
+                            navController.popBackStack()
                         },
                     )
                 }

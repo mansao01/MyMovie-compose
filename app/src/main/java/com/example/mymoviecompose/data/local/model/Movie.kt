@@ -13,4 +13,6 @@ data class Movie(
     var title: String = "",
     @ColumnInfo("photo")
     var photoUrl: String = "",
+    @ColumnInfo("overview")
+    var overview: String = "",
 )
