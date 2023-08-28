@@ -15,6 +15,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
@@ -55,12 +56,10 @@ fun DetailScreen(
     navigateToHome: () -> Unit,
 
 ) {
-    val context = LocalContext.current
     LaunchedEffect(Unit) {
         detailViewModel.getDetailMovie(movieId)
     }
     when (uiState) {
-        is DetailUiState.Default -> detailViewModel.getDetailMovie(movieId)
         is DetailUiState.Loading -> LoadingScreen()
         is DetailUiState.Success -> DetailContent(
             movie = uiState.movie,
@@ -69,7 +68,6 @@ fun DetailScreen(
             detailViewModel = detailViewModel,
         )
 
-        is DetailUiState.DatabaseTransactionSuccess -> MToast(context, uiState.message)
         is DetailUiState.Error -> ErrorScreen()
     }
 }
@@ -81,6 +79,15 @@ fun DetailContent(
     navigateToHome: () -> Unit,
     detailViewModel: DetailViewModel
 ) {
+    val context = LocalContext.current
+    val isFavorite = detailViewModel.isFavorite.value
+
+    val movieEntity = Movie(
+        id = movie.id,
+        title = movie.title,
+        photoUrl = "https://image.tmdb.org/t/p/original/${movie.backdropPath}", // Adjust this URL as needed
+        isFavorite = isFavorite
+    )
 
     Column(modifier = modifier) {
         Card(
@@ -130,21 +137,19 @@ fun DetailContent(
 
                     IconButton(
                         onClick = {
-                            detailViewModel.insertMovieToFavor(
-                                Movie(
-                                    id = movie.id,
-                                    title = movie.title,
-                                    movie.posterPath,
-                                    isFavorite = true
-                                )
-                            )
+                            if (isFavorite) {
+                                detailViewModel.deleteMovieFromFavor(movieEntity)
+                            } else {
+                                detailViewModel.insertMovieToFavor(movieEntity)
+                                Toast.makeText(context, detailViewModel.message.value, Toast.LENGTH_SHORT).show()
+                            }
                         },
                         modifier = Modifier
                             .padding(16.dp)
                             .align(Alignment.TopEnd)
                     ) {
                         Icon(
-                            imageVector =  Icons.Default.FavoriteBorder,
+                            imageVector = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                             tint = MaterialTheme.colorScheme.primary,
                             contentDescription = stringResource(R.string.favorite),
                             modifier = Modifier

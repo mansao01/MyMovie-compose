@@ -17,9 +17,7 @@ sealed interface HomeUiState {
 }
 
 sealed interface DetailUiState {
-    object Default : DetailUiState
     data class Success(val movie: DetailMovieResponse) : DetailUiState
-    data class DatabaseTransactionSuccess(val message: String) : DetailUiState
     data class Error(val message:String):DetailUiState
     object Loading : DetailUiState
 }

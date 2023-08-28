@@ -1,6 +1,7 @@
 package com.example.mymoviecompose.ui.screen.detail
 
 import android.util.Log
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -26,6 +27,12 @@ class DetailViewModel(
     var uiState: DetailUiState by mutableStateOf(DetailUiState.Loading)
         private set
 
+    private val _isFavorite = mutableStateOf(false)
+    val isFavorite: State<Boolean> = _isFavorite
+
+    private val _message = mutableStateOf("")
+    val message: State<String> = _message
+
 
 
     fun getDetailMovie(movieId: Int) {
@@ -43,26 +50,24 @@ class DetailViewModel(
 
     }
 
-    fun insertMovieToFavor(movie:Movie){
+    fun insertMovieToFavor(movie: Movie) {
         viewModelScope.launch {
-            uiState = try {
+            try {
                 localMovieRepository.insert(movie)
-                DetailUiState.DatabaseTransactionSuccess("Added to favorite")
-            }catch (e:IOException){
+                _isFavorite.value = true
+                _message.value  = "Added favorites"
+            } catch (e: IOException) {
                 e.printStackTrace()
                 Log.e("DetailViewModel", e.message.toString())
-                DetailUiState.Error(e.message.toString())
             }
-            uiState = DetailUiState.Default
         }
     }
 
-    fun deleteMovieFromFavor(movie:Movie){
+    fun deleteMovieFromFavor(movie: Movie) {
         viewModelScope.launch {
-            uiState = try {
+              try {
                 localMovieRepository.delete(movie)
-                DetailUiState.DatabaseTransactionSuccess("Added to favorite")
-            }catch (e:IOException){
+            } catch (e: IOException) {
                 e.printStackTrace()
                 DetailUiState.Error(e.message.toString())
             }
