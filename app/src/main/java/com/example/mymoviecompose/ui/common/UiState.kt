@@ -5,6 +5,7 @@ import com.example.mymoviecompose.data.network.response.DetailMovieResponse
 import com.example.mymoviecompose.data.network.response.MovieResponse
 import com.example.mymoviecompose.data.network.response.SearchMovieResponse
 import com.example.mymoviecompose.data.network.response.TrendingMovieResponse
+import kotlinx.coroutines.flow.Flow
 
 sealed interface HomeUiState {
     data class Success(
@@ -17,7 +18,7 @@ sealed interface HomeUiState {
 }
 
 sealed interface DetailUiState {
-    data class Success(val movie: DetailMovieResponse) : DetailUiState
+    data class Success(val movie: DetailMovieResponse,val movieFlow: Flow<Movie>) : DetailUiState
     data class Error(val message:String):DetailUiState
     object Loading : DetailUiState
 }

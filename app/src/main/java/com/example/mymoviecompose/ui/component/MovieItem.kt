@@ -219,7 +219,7 @@ fun MovieFavoriteItemColumn(
     movie: Movie, modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = modifier.padding(4.dp),
+        modifier = modifier.padding(4.dp).fillMaxWidth(),
         shape = MaterialTheme.shapes.medium
     ) {
         Row(modifier = modifier.width(320.dp)) {

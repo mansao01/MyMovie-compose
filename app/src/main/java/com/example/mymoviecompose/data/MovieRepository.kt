@@ -19,7 +19,8 @@ interface MovieRepository {
 interface LocalMovieRepository {
     suspend fun insert(movie: Movie)
     suspend fun delete(movie: Movie)
-     fun getFavoriteMovie(): Flow<List<Movie>>
+    fun getFavoriteMovie(): Flow<List<Movie>>
+    fun getFavoriteById(id: Int): Flow<Movie>
 }
 
 class NetworkMovieRepository(
@@ -50,6 +51,6 @@ class RoomLocalMovieRepository(
 
     override suspend fun delete(movie: Movie) = movieDao.delete(movie)
 
-    override  fun getFavoriteMovie(): Flow<List<Movie>> = movieDao.getFavorite()
-
+    override fun getFavoriteMovie(): Flow<List<Movie>> = movieDao.getFavorite()
+    override fun getFavoriteById(id: Int): Flow<Movie> = movieDao.getFavoriteById(id)
 }

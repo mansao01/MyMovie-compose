@@ -8,11 +8,9 @@ import androidx.room.PrimaryKey
 data class Movie(
     @PrimaryKey
     @ColumnInfo(name = "id")
-    val id: Int,
+    var id: Int = 0,
     @ColumnInfo("title")
-    val title: String,
+    var title: String = "",
     @ColumnInfo("photo")
-    val photoUrl: String,
-    @ColumnInfo("isFavorite")
-    val isFavorite: Boolean
+    var photoUrl: String = "",
 )

@@ -19,4 +19,7 @@ interface MovieDao {
 
     @Query("SELECT * FROM movie")
     fun getFavorite(): Flow<List<Movie>>
+
+    @Query("SELECT * FROM movie WHERE id= :id")
+    fun getFavoriteById(id:Int):Flow<Movie>
 }

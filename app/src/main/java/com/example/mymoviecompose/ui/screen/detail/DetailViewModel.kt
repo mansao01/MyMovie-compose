@@ -27,11 +27,6 @@ class DetailViewModel(
     var uiState: DetailUiState by mutableStateOf(DetailUiState.Loading)
         private set
 
-    private val _isFavorite = mutableStateOf(false)
-    val isFavorite: State<Boolean> = _isFavorite
-
-    private val _message = mutableStateOf("")
-    val message: State<String> = _message
 
 
 
@@ -40,7 +35,8 @@ class DetailViewModel(
             uiState = DetailUiState.Loading
             uiState = try {
                 val result = repository.getMovieDetail(movieId)
-                DetailUiState.Success(result)
+                val localResult = localMovieRepository.getFavoriteById(movieId)
+                DetailUiState.Success(result, localResult)
             } catch (e: IOException) {
                 DetailUiState.Error(e.message.toString())
             } catch (e: HttpException) {
@@ -54,8 +50,6 @@ class DetailViewModel(
         viewModelScope.launch {
             try {
                 localMovieRepository.insert(movie)
-                _isFavorite.value = true
-                _message.value  = "Added favorites"
             } catch (e: IOException) {
                 e.printStackTrace()
                 Log.e("DetailViewModel", e.message.toString())

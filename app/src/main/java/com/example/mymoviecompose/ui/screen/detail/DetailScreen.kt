@@ -1,7 +1,5 @@
 package com.example.mymoviecompose.ui.screen.detail
 
-import android.content.Context
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,6 +22,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -46,6 +46,9 @@ import com.example.mymoviecompose.ui.common.DetailUiState
 import com.example.mymoviecompose.ui.component.ErrorScreen
 import com.example.mymoviecompose.ui.component.GenreList
 import com.example.mymoviecompose.ui.component.LoadingScreen
+import kotlinx.coroutines.flow.Flow
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.contract
 
 @Composable
 fun DetailScreen(
@@ -66,27 +69,29 @@ fun DetailScreen(
             navigateToHome = navigateToHome,
             modifier = modifier,
             detailViewModel = detailViewModel,
+            movieFlow = uiState.movieFlow
         )
 
         is DetailUiState.Error -> ErrorScreen()
     }
 }
 
+@OptIn(ExperimentalContracts::class)
 @Composable
 fun DetailContent(
     movie: DetailMovieResponse,
+    movieFlow: Flow<Movie>,
     modifier: Modifier = Modifier,
     navigateToHome: () -> Unit,
     detailViewModel: DetailViewModel
 ) {
-    val context = LocalContext.current
-    val isFavorite = detailViewModel.isFavorite.value
+    val movieFlowResult by movieFlow.collectAsState(initial = Movie())
+
 
     val movieEntity = Movie(
         id = movie.id,
         title = movie.title,
         photoUrl = "https://image.tmdb.org/t/p/original/${movie.backdropPath}", // Adjust this URL as needed
-        isFavorite = isFavorite
     )
 
     Column(modifier = modifier) {
@@ -137,11 +142,10 @@ fun DetailContent(
 
                     IconButton(
                         onClick = {
-                            if (isFavorite) {
+                            if (movieFlowResult != null) {
                                 detailViewModel.deleteMovieFromFavor(movieEntity)
                             } else {
                                 detailViewModel.insertMovieToFavor(movieEntity)
-                                Toast.makeText(context, detailViewModel.message.value, Toast.LENGTH_SHORT).show()
                             }
                         },
                         modifier = Modifier
@@ -149,7 +153,7 @@ fun DetailContent(
                             .align(Alignment.TopEnd)
                     ) {
                         Icon(
-                            imageVector = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                            imageVector = if (movieFlowResult != null) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                             tint = MaterialTheme.colorScheme.primary,
                             contentDescription = stringResource(R.string.favorite),
                             modifier = Modifier
@@ -189,8 +193,4 @@ fun DetailContent(
     }
 }
 
-@Composable
-private fun MToast(context: Context, message: String) {
-    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-}
 
