@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -36,6 +37,7 @@ import com.example.mymoviecompose.navigation.Screen
 import com.example.mymoviecompose.ui.component.MyTopAppBar
 import com.example.mymoviecompose.ui.screen.detail.DetailScreen
 import com.example.mymoviecompose.ui.screen.detail.DetailViewModel
+import com.example.mymoviecompose.ui.screen.favorite.FavoriteScreen
 import com.example.mymoviecompose.ui.screen.home.HomeScreen
 import com.example.mymoviecompose.ui.screen.home.HomeViewModel
 import com.example.mymoviecompose.ui.screen.search.SearchScreen
@@ -93,6 +95,11 @@ fun MovieApp(
                     )
                 }
 
+                composable(Screen.Favorite.route) {
+                    FavoriteScreen(navigateToDetail = { movieId ->
+                        navController.navigate(Screen.Detail.createRoute(movieId))
+                    })
+                }
 
                 composable(Screen.Detail.route, arguments = listOf(navArgument("movieId") {
                     type = NavType.IntType
@@ -102,9 +109,10 @@ fun MovieApp(
                         viewModel(factory = DetailViewModel.Factory)
                     DetailScreen(
                         uiState = detailViewModel.uiState,
-                        movieId = movieId, navigateToHome = {
+                        movieId = movieId,
+                        navigateToHome = {
                             navController.navigate(Screen.Home.route)
-                        }
+                        },
                     )
                 }
             }
@@ -133,6 +141,13 @@ fun BottomBar(
             icon = Icons.Default.Search,
             screen = Screen.Search,
             contentDescription = stringResource(R.string.search)
+
+        ),
+        NavigationItem(
+            title = stringResource(R.string.favorite),
+            icon = Icons.Default.FavoriteBorder,
+            screen = Screen.Favorite,
+            contentDescription = stringResource(R.string.favorite)
 
         )
     )

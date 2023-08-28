@@ -1,5 +1,7 @@
 package com.example.mymoviecompose.ui.screen.detail
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -7,13 +9,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -37,6 +39,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.mymoviecompose.R
+import com.example.mymoviecompose.data.local.model.Movie
 import com.example.mymoviecompose.data.network.response.DetailMovieResponse
 import com.example.mymoviecompose.ui.common.DetailUiState
 import com.example.mymoviecompose.ui.component.ErrorScreen
@@ -49,20 +52,24 @@ fun DetailScreen(
     movieId: Int,
     modifier: Modifier = Modifier,
     detailViewModel: DetailViewModel = viewModel(factory = DetailViewModel.Factory),
-    navigateToHome: () -> Unit
+    navigateToHome: () -> Unit,
 
 ) {
+    val context = LocalContext.current
     LaunchedEffect(Unit) {
         detailViewModel.getDetailMovie(movieId)
     }
     when (uiState) {
+        is DetailUiState.Default -> detailViewModel.getDetailMovie(movieId)
         is DetailUiState.Loading -> LoadingScreen()
         is DetailUiState.Success -> DetailContent(
             movie = uiState.movie,
             navigateToHome = navigateToHome,
-            modifier = modifier
+            modifier = modifier,
+            detailViewModel = detailViewModel,
         )
 
+        is DetailUiState.DatabaseTransactionSuccess -> MToast(context, uiState.message)
         is DetailUiState.Error -> ErrorScreen()
     }
 }
@@ -71,8 +78,10 @@ fun DetailScreen(
 fun DetailContent(
     movie: DetailMovieResponse,
     modifier: Modifier = Modifier,
-    navigateToHome: () -> Unit
+    navigateToHome: () -> Unit,
+    detailViewModel: DetailViewModel
 ) {
+
     Column(modifier = modifier) {
         Card(
             modifier = Modifier
@@ -116,12 +125,34 @@ fun DetailContent(
                                     shape = CircleShape
                                 )
                                 .padding(8.dp)
-//                                .drawBehind {
-//                                    drawCircle(
-//                                        color = Color.White,
-//                                        radius = this.size.minDimension
-//                                    )
-//                                }
+                        )
+                    }
+
+                    IconButton(
+                        onClick = {
+                            detailViewModel.insertMovieToFavor(
+                                Movie(
+                                    id = movie.id,
+                                    title = movie.title,
+                                    movie.posterPath,
+                                    isFavorite = true
+                                )
+                            )
+                        },
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .align(Alignment.TopEnd)
+                    ) {
+                        Icon(
+                            imageVector =  Icons.Default.FavoriteBorder,
+                            tint = MaterialTheme.colorScheme.primary,
+                            contentDescription = stringResource(R.string.favorite),
+                            modifier = Modifier
+                                .background(
+                                    MaterialTheme.colorScheme.background,
+                                    shape = CircleShape
+                                )
+                                .padding(8.dp)
                         )
                     }
                 }
@@ -151,5 +182,10 @@ fun DetailContent(
                 .padding(horizontal = 16.dp)
         )
     }
+}
+
+@Composable
+private fun MToast(context: Context, message: String) {
+    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 }
 

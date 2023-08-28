@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -30,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.mymoviecompose.R
+import com.example.mymoviecompose.data.local.model.Movie
 import com.example.mymoviecompose.data.network.response.ResultsItem
 import com.example.mymoviecompose.data.network.response.ResultsItemSearch
 import com.example.mymoviecompose.data.network.response.ResultsItemTrending
@@ -209,6 +209,46 @@ fun MovieItemRow2(movie: ResultsItem, modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .padding(horizontal = 16.dp, vertical = 16.dp)
             )
+        }
+    }
+}
+
+
+@Composable
+fun MovieFavoriteItemColumn(
+    movie: Movie, modifier: Modifier = Modifier
+) {
+    Card(
+        modifier = modifier.padding(4.dp),
+        shape = MaterialTheme.shapes.medium
+    ) {
+        Row(modifier = modifier.width(320.dp)) {
+            AsyncImage(
+                model = ImageRequest.Builder(context = LocalContext.current)
+                    .data("https://image.tmdb.org/t/p/original/${movie.photoUrl}")
+                    .crossfade(true)
+                    .build(),
+                contentDescription = null,
+                placeholder = painterResource(id = R.drawable.loading_img),
+                error = painterResource(id = R.drawable.ic_broken_image),
+                modifier = Modifier
+                    .size(82.dp)
+                    .align(Alignment.CenterVertically)
+            )
+            Column(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .padding(top = 4.dp)
+            ) {
+                Text(
+                    text = movie.title,
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier
+                        .padding(4.dp)
+                        .padding(bottom = 8.dp)
+                )
+
+            }
         }
     }
 }

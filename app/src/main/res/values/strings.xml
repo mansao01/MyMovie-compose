@@ -8,4 +8,5 @@
     <string name="back">Back</string>
     <string name="please_search_movie_to_show_result">Please search movie to show result</string>
     <string name="movie_not_found">Movie Not Found</string>
+    <string name="favorite">Favorite</string>
 </resources>

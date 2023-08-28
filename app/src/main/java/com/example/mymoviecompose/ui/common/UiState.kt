@@ -1,5 +1,6 @@
 package com.example.mymoviecompose.ui.common
 
+import com.example.mymoviecompose.data.local.model.Movie
 import com.example.mymoviecompose.data.network.response.DetailMovieResponse
 import com.example.mymoviecompose.data.network.response.MovieResponse
 import com.example.mymoviecompose.data.network.response.SearchMovieResponse
@@ -16,8 +17,10 @@ sealed interface HomeUiState {
 }
 
 sealed interface DetailUiState {
+    object Default : DetailUiState
     data class Success(val movie: DetailMovieResponse) : DetailUiState
-    object Error : DetailUiState
+    data class DatabaseTransactionSuccess(val message: String) : DetailUiState
+    data class Error(val message:String):DetailUiState
     object Loading : DetailUiState
 }
 
@@ -26,4 +29,8 @@ sealed interface SearchUiState {
     object Error : SearchUiState
     object StandBy : SearchUiState
     object Loading : SearchUiState
+}
+
+sealed interface FavoriteUiState{
+    data class Result(val movie:List<Movie> = listOf())
 }

@@ -8,4 +8,6 @@
     <string name="back">Kembali</string>
     <string name="please_search_movie_to_show_result">Silakan cari film untuk menampilkan hasil</string>
     <string name="movie_not_found">Film Tidak Ditemukan</string>
+    <string name="favorite">Favorite</string>
+
 </resources>
