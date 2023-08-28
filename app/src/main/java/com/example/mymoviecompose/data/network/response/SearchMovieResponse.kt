@@ -1,4 +1,4 @@
-package com.example.mymoviecompose.network.response
+package com.example.mymoviecompose.data.network.response
 
 import com.google.gson.annotations.SerializedName
 

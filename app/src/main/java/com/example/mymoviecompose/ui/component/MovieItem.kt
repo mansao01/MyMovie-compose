@@ -30,9 +30,9 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.mymoviecompose.R
-import com.example.mymoviecompose.network.response.ResultsItem
-import com.example.mymoviecompose.network.response.ResultsItemSearch
-import com.example.mymoviecompose.network.response.ResultsItemTrending
+import com.example.mymoviecompose.data.network.response.ResultsItem
+import com.example.mymoviecompose.data.network.response.ResultsItemSearch
+import com.example.mymoviecompose.data.network.response.ResultsItemTrending
 
 @Composable
 fun MovieItemColumn(

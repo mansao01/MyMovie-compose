@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp")
+
 }
 
 android {
@@ -11,7 +13,7 @@ android {
 //        buildConfigField("String", "AUTH", "Authorization :Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NTNlOTgzMGNkNGU2MDNhZTI4ZDcwNjk3M2VkMzZkZCIsInN1YiI6IjYyYTAwYWI5MTEzMGJkMDA5ZmM4NTAyMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.YArQOTxSOwqjeEJd7Cj7kqQ1KtMWzKYhFVLUegkPNY0")
         applicationId = "com.example.mymoviecompose"
         minSdk = 25
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -31,11 +33,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -72,6 +74,10 @@ dependencies {
 
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
+
+    implementation("androidx.room:room-runtime:${rootProject.extra["room_version"]}")
+    ksp("androidx.room:room-compiler:${rootProject.extra["room_version"]}")
+    implementation("androidx.room:room-ktx:${rootProject.extra["room_version"]}")
 
     //coil
     implementation ("io.coil-kt:coil-compose:2.4.0")

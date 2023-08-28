@@ -1,9 +1,9 @@
 package com.example.mymoviecompose.ui.common
 
-import com.example.mymoviecompose.network.response.DetailMovieResponse
-import com.example.mymoviecompose.network.response.MovieResponse
-import com.example.mymoviecompose.network.response.SearchMovieResponse
-import com.example.mymoviecompose.network.response.TrendingMovieResponse
+import com.example.mymoviecompose.data.network.response.DetailMovieResponse
+import com.example.mymoviecompose.data.network.response.MovieResponse
+import com.example.mymoviecompose.data.network.response.SearchMovieResponse
+import com.example.mymoviecompose.data.network.response.TrendingMovieResponse
 
 sealed interface HomeUiState {
     data class Success(

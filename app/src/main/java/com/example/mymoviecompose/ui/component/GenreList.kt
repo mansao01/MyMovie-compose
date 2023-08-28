@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
-import com.example.mymoviecompose.network.response.GenresItem
+import com.example.mymoviecompose.data.network.response.GenresItem
 
 @Composable
 fun GenreList(

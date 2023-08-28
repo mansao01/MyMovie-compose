@@ -17,7 +17,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.mymoviecompose.R
-import com.example.mymoviecompose.network.response.ResultsItemSearch
+import com.example.mymoviecompose.data.network.response.ResultsItemSearch
 import com.example.mymoviecompose.ui.common.SearchUiState
 import com.example.mymoviecompose.ui.component.ErrorScreen
 import com.example.mymoviecompose.ui.component.LoadingScreen

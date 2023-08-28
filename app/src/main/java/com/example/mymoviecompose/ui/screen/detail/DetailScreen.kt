@@ -37,7 +37,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.mymoviecompose.R
-import com.example.mymoviecompose.network.response.DetailMovieResponse
+import com.example.mymoviecompose.data.network.response.DetailMovieResponse
 import com.example.mymoviecompose.ui.common.DetailUiState
 import com.example.mymoviecompose.ui.component.ErrorScreen
 import com.example.mymoviecompose.ui.component.GenreList

@@ -1,8 +1,8 @@
-package com.example.mymoviecompose.network.response
+package com.example.mymoviecompose.data.network.response
 
 import com.google.gson.annotations.SerializedName
 
-data class TrendingMovieResponse(
+data class MovieResponse(
 
 	@field:SerializedName("page")
 	val page: Int,
@@ -11,13 +11,13 @@ data class TrendingMovieResponse(
 	val totalPages: Int,
 
 	@field:SerializedName("results")
-	val resultsTrending: List<ResultsItemTrending>,
+	val results: List<ResultsItem>,
 
 	@field:SerializedName("total_results")
 	val totalResults: Int
 )
 
-data class ResultsItemTrending(
+data class ResultsItem(
 
 	@field:SerializedName("overview")
 	val overview: String,
@@ -35,16 +35,13 @@ data class ResultsItemTrending(
 	val title: String,
 
 	@field:SerializedName("genre_ids")
-	val genreIds: List<Int?>,
+	val genreIds: List<Int>,
 
 	@field:SerializedName("poster_path")
 	val posterPath: String,
 
 	@field:SerializedName("backdrop_path")
 	val backdropPath: String,
-
-	@field:SerializedName("media_type")
-	val mediaType: String,
 
 	@field:SerializedName("release_date")
 	val releaseDate: String,

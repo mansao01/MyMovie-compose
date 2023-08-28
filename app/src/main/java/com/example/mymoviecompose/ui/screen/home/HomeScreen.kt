@@ -23,8 +23,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.mymoviecompose.R
-import com.example.mymoviecompose.network.response.ResultsItem
-import com.example.mymoviecompose.network.response.ResultsItemTrending
+import com.example.mymoviecompose.data.network.response.ResultsItem
+import com.example.mymoviecompose.data.network.response.ResultsItemTrending
 import com.example.mymoviecompose.ui.common.HomeUiState
 import com.example.mymoviecompose.ui.component.ErrorScreen
 import com.example.mymoviecompose.ui.component.HomeSection

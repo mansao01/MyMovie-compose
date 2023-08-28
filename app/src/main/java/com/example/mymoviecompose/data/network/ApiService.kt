@@ -1,9 +1,9 @@
-package com.example.mymoviecompose.network
+package com.example.mymoviecompose.data.network
 
-import com.example.mymoviecompose.network.response.DetailMovieResponse
-import com.example.mymoviecompose.network.response.MovieResponse
-import com.example.mymoviecompose.network.response.SearchMovieResponse
-import com.example.mymoviecompose.network.response.TrendingMovieResponse
+import com.example.mymoviecompose.data.network.response.DetailMovieResponse
+import com.example.mymoviecompose.data.network.response.MovieResponse
+import com.example.mymoviecompose.data.network.response.SearchMovieResponse
+import com.example.mymoviecompose.data.network.response.TrendingMovieResponse
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Path
@@ -24,7 +24,7 @@ interface ApiService {
     suspend fun getTrendingMovies(
         @Query("api_key")
         apiKey: String = "753e9830cd4e603ae28d706973ed36dd"
-    ):TrendingMovieResponse
+    ): TrendingMovieResponse
 
     @GET("search/movie")
     suspend fun searchMovie(
@@ -34,7 +34,7 @@ interface ApiService {
         apiKey: String = "753e9830cd4e603ae28d706973ed36dd",
         @Query("include_adult")
         includeAdult:Boolean = false
-    ):SearchMovieResponse
+    ): SearchMovieResponse
 
     @GET("movie/{movie_id}")
      suspend fun getDetailMovie(
