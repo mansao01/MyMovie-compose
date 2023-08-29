@@ -55,7 +55,7 @@ fun DetailScreen(
     detailViewModel: DetailViewModel = viewModel(factory = DetailViewModel.Factory),
     navigateToHome: () -> Unit,
 
-) {
+    ) {
     LaunchedEffect(Unit) {
         detailViewModel.getDetailMovie(movieId)
     }
@@ -174,6 +174,13 @@ fun DetailContent(
                     modifier = Modifier
                         .padding(horizontal = 12.dp)
                         .padding(top = 16.dp)
+                )
+                Text(
+                    text = "Release data: ${movie.releaseDate}",
+                    style = MaterialTheme.typography.labelMedium,
+                    modifier = Modifier
+                        .padding(horizontal = 12.dp)
+                        .padding(top = 8.dp, bottom = 8.dp)
                 )
                 GenreList(
                     genre = movie.genres,
