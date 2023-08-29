@@ -169,7 +169,6 @@ fun BottomBar(
 
         )
     )
-
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -180,6 +179,12 @@ fun BottomBar(
         verticalAlignment = Alignment.CenterVertically
     ) {
         navigationItems.forEach { item ->
+            val isSelected = currentRoute == item.screen.route
+            val selectedColor = MaterialTheme.colorScheme.onPrimary
+            val unselectedColor = MaterialTheme.colorScheme.onBackground.copy(0.6f)
+
+
+
             IconButton(
                 onClick = {
                     navController.navigate(item.screen.route) {
@@ -205,11 +210,7 @@ fun BottomBar(
                 Icon(
                     imageVector = item.icon,
                     contentDescription = item.contentDescription,
-                    tint = if (currentRoute == item.screen.route) {
-                        MaterialTheme.colorScheme.onPrimary
-                    } else {
-                        MaterialTheme.colorScheme.onBackground.copy(0.6f)
-                    }
+                    tint = if (isSelected) selectedColor else unselectedColor
                 )
             }
         }
