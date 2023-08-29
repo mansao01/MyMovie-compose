@@ -84,7 +84,7 @@ fun MovieFavList(
                 iterations = LottieConstants.IterateForever,
                 modifier = Modifier.size(120.dp)
             )
-            Text(text = "Nothing here")
+            Text(text = "Nothing here", color = MaterialTheme.colorScheme.primary)
         }
     } else {
 
@@ -110,7 +110,7 @@ fun FavScreenTopBar(
             Text(
                 text = stringResource(R.string.favorite),
                 color = MaterialTheme.colorScheme.primary,
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.headlineSmall,
             )
         },
         modifier = modifier

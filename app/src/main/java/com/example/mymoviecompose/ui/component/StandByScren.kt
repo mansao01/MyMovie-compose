@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -26,14 +27,12 @@ fun StandByScreen(message: String, modifier: Modifier = Modifier) {
 
         val composition by
         rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.search))
-
-
             LottieAnimation(
                 composition = composition,
                 iterations = LottieConstants.IterateForever,
                 modifier = Modifier.size(180.dp)
             )
-            Text(text = message)
+            Text(text = message, color = MaterialTheme.colorScheme.primary)
 
     }
 }

@@ -2,26 +2,32 @@
 
 package com.example.mymoviecompose.ui
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -34,7 +40,6 @@ import androidx.navigation.navArgument
 import com.example.mymoviecompose.R
 import com.example.mymoviecompose.navigation.NavigationItem
 import com.example.mymoviecompose.navigation.Screen
-import com.example.mymoviecompose.ui.component.MyTopAppBar
 import com.example.mymoviecompose.ui.screen.detail.DetailScreen
 import com.example.mymoviecompose.ui.screen.detail.DetailViewModel
 import com.example.mymoviecompose.ui.screen.favorite.FavoriteScreen
@@ -42,12 +47,15 @@ import com.example.mymoviecompose.ui.screen.home.HomeScreen
 import com.example.mymoviecompose.ui.screen.home.HomeViewModel
 import com.example.mymoviecompose.ui.screen.search.SearchScreen
 import com.example.mymoviecompose.ui.screen.search.SearchViewModel
+import com.example.mymoviecompose.ui.screen.setting.SettingScreen
 
 @ExperimentalMaterial3Api
 @Composable
 fun MovieApp(
     modifier: Modifier = Modifier,
-    navController: NavHostController = rememberNavController()
+    navController: NavHostController = rememberNavController(),
+    onDarkModeChange: (Boolean) -> Unit
+
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -55,13 +63,8 @@ fun MovieApp(
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = {
-            if (currentRoute == Screen.Home.route) {
-                MyTopAppBar(scrollBehavior = scrollBehavior)
-            }
-        },
         bottomBar = {
-            if (currentRoute != Screen.Detail.route) {
+            if (currentRoute != Screen.Detail.route && currentRoute != Screen.Setting.route) {
                 BottomBar(navController = navController)
             }
         }
@@ -80,9 +83,14 @@ fun MovieApp(
                     HomeScreen(
                         uiState = homeViewModel.uiState,
                         modifier = modifier,
+                        scrollBehavior = scrollBehavior,
                         navigateToDetail = { movieId ->
                             navController.navigate(Screen.Detail.createRoute(movieId))
-                        })
+                        },
+                        navigateToSetting = {
+                            navController.navigate(Screen.Setting.route)
+                        }
+                    )
                 }
 
                 composable(Screen.Search.route) {
@@ -97,6 +105,12 @@ fun MovieApp(
                     )
                 }
 
+                composable(Screen.Setting.route) {
+                    SettingScreen(
+                        onDarkModeChange = onDarkModeChange,
+                        scrollBehavior = scrollBehavior,
+                        navigateToHome = { navController.popBackStack() })
+                }
                 composable(Screen.Favorite.route) {
                     FavoriteScreen(
                         navigateToDetail = { movieId ->
@@ -155,21 +169,18 @@ fun BottomBar(
 
         )
     )
-    BottomNavigation(
-        backgroundColor = MaterialTheme.colorScheme.background,
-        contentColor = MaterialTheme.colorScheme.onBackground,
+
+    Row(
         modifier = modifier
+            .fillMaxWidth()
+            .height(56.dp) // Adjust the height as needed
+            .background(MaterialTheme.colorScheme.background)
+            .padding(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        navigationItems.map { item ->
-            BottomNavigationItem(
-                selected = currentRoute == item.screen.route,
-                icon = {
-                    Icon(
-                        imageVector = item.icon,
-                        contentDescription = item.contentDescription,
-                        tint = MaterialTheme.colorScheme.primary
-                    )
-                },
+        navigationItems.forEach { item ->
+            IconButton(
                 onClick = {
                     navController.navigate(item.screen.route) {
                         popUpTo(navController.graph.findStartDestination().id) {
@@ -179,12 +190,28 @@ fun BottomBar(
                         launchSingleTop = true
                     }
                 },
-                label = {
-                    Text(text = item.title)
-                },
-                unselectedContentColor = MaterialTheme.colorScheme.onBackground.copy(0.4f),
-                selectedContentColor = MaterialTheme.colorScheme.tertiaryContainer,
-            )
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(4.dp)
+                    .background(
+                        if (currentRoute == item.screen.route) {
+                            MaterialTheme.colorScheme.primary
+                        } else {
+                            MaterialTheme.colorScheme.background
+                        },
+                        shape = CircleShape
+                    )
+            ) {
+                Icon(
+                    imageVector = item.icon,
+                    contentDescription = item.contentDescription,
+                    tint = if (currentRoute == item.screen.route) {
+                        MaterialTheme.colorScheme.onPrimary
+                    } else {
+                        MaterialTheme.colorScheme.onBackground.copy(0.6f)
+                    }
+                )
+            }
         }
     }
 }

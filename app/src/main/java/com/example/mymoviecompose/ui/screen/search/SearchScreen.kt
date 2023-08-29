@@ -121,7 +121,7 @@ fun SearchScreenTopBar(
             Text(
                 text = stringResource(R.string.search),
                 color = MaterialTheme.colorScheme.primary,
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.headlineSmall,
             )
         },
         modifier = modifier

@@ -1,5 +1,9 @@
 package com.example.mymoviecompose.ui.common
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DarkMode
+import androidx.compose.material.icons.filled.LightMode
+import androidx.compose.ui.graphics.vector.ImageVector
 import com.example.mymoviecompose.data.local.model.Movie
 import com.example.mymoviecompose.data.network.response.DetailMovieResponse
 import com.example.mymoviecompose.data.network.response.MovieResponse
@@ -32,4 +36,14 @@ sealed interface SearchUiState {
 
 sealed interface FavoriteUiState{
     data class Result(val movie:List<Movie> = listOf())
+}
+
+sealed interface SettingUiState {
+    data class SettingUiState(
+        val isDarkMode: Boolean = false,
+        val title: String = if (isDarkMode) "Dark Mode" else "Light Mode",
+        val icon: ImageVector =
+            if (isDarkMode) Icons.Default.DarkMode else Icons.Default.LightMode
+    )
+
 }
