@@ -43,6 +43,7 @@ import com.example.mymoviecompose.ui.screen.home.HomeViewModel
 import com.example.mymoviecompose.ui.screen.search.SearchScreen
 import com.example.mymoviecompose.ui.screen.search.SearchViewModel
 
+@ExperimentalMaterial3Api
 @Composable
 fun MovieApp(
     modifier: Modifier = Modifier,
@@ -91,14 +92,17 @@ fun MovieApp(
                         searchViewModel.uiState,
                         navigateToDetail = { movieId ->
                             navController.navigate(Screen.Detail.createRoute(movieId))
-                        }
+                        },
+                        scrollBehavior = scrollBehavior
                     )
                 }
 
                 composable(Screen.Favorite.route) {
-                    FavoriteScreen(navigateToDetail = { movieId ->
-                        navController.navigate(Screen.Detail.createRoute(movieId))
-                    })
+                    FavoriteScreen(
+                        navigateToDetail = { movieId ->
+                            navController.navigate(Screen.Detail.createRoute(movieId))
+                        }, scrollBehavior = scrollBehavior
+                    )
                 }
 
                 composable(Screen.Detail.route, arguments = listOf(navArgument("movieId") {

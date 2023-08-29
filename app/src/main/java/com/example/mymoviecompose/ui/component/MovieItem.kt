@@ -108,7 +108,9 @@ fun SearchMovieItemColumn(
                 Text(
                     text = movie.title,
                     style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.padding(4.dp)
+                    modifier = Modifier.padding(4.dp),
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
                 )
                 Text(
                     text = movie.overview,
@@ -219,7 +221,9 @@ fun MovieFavoriteItemColumn(
     movie: Movie, modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = modifier.padding(4.dp).fillMaxWidth(),
+        modifier = modifier
+            .padding(4.dp)
+            .fillMaxWidth(),
         shape = MaterialTheme.shapes.medium
     ) {
         Row(modifier = modifier.width(320.dp)) {
@@ -243,6 +247,8 @@ fun MovieFavoriteItemColumn(
                 Text(
                     text = movie.title,
                     style = MaterialTheme.typography.bodyLarge,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
                     modifier = Modifier
                         .padding(4.dp)
                 )
@@ -251,7 +257,7 @@ fun MovieFavoriteItemColumn(
                     text = movie.overview,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
 
