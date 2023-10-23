@@ -33,7 +33,7 @@ interface ApiService {
         @Query("api_key")
         apiKey: String = "753e9830cd4e603ae28d706973ed36dd",
         @Query("include_adult")
-        includeAdult:Boolean = false
+        includeAdult:Boolean = true
     ): SearchMovieResponse
 
     @GET("movie/{movie_id}")

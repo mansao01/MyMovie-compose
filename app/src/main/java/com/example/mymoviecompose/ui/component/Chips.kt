@@ -13,7 +13,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ChipView(text:String, modifier: Modifier = Modifier) {
+fun ChipView(text: String, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .wrapContentWidth()
@@ -21,7 +21,8 @@ fun ChipView(text:String, modifier: Modifier = Modifier) {
             .background(MaterialTheme.colorScheme.primary.copy(.08f))
     ) {
         Text(
-            text = text, modifier = Modifier.padding(12.dp, 6.dp, 12.dp, 6.dp),
+            text = text,
+            modifier = Modifier.padding(12.dp, 6.dp, 12.dp, 6.dp),
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.primary
         )
